@@ -119,13 +119,6 @@ class clientThread extends Thread {
                 } else {
                     os.println("The name should not contain '@' character.");
                 }
-
-                if (name.contains("Shokeru") || name.contains("shokeru")) {
-                    break;
-                } else {
-                    os.println("The name should not be Shokeru.");
-                }
-
             }
 
             /* Welcome the new the client. */
@@ -148,7 +141,7 @@ class clientThread extends Thread {
                     if (threads[i] != null) {
                         threads[i].os.println("/users");
                         for(int j = 0; j < maxClientsCount; j++){
-                            if ((threads[j] != null) && (threads[j].clientName != null)) {
+                            if ((threads[j] != null) && (threads[j].clientName != null) && (i != j)) {
                                 threads[i].os.println(threads[j].clientName);
                             }
                         }
