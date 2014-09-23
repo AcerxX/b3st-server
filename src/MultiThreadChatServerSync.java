@@ -214,18 +214,21 @@ class clientThread extends Thread {
 
                     System.out.print("Handshaking...");
                     if (!filename.equals("")) {
+                        System.out.print("Sending filename to receiver...");
                         outWriter.write(filename + "\n");
                         outWriter.flush();
                         
+                        System.out.print("Getting receiver status...");
                         String status = inWriter.readLine();
-                        if (status.equals("ABORD")){
+                        if (status.contains("ABORD")){
+                            System.out.print("ABORDING...");
                             outReader.write("ABORD\n");
                             outReader.flush();
                             output.close();
                             server.close();
                             continue;
                         }
-                        
+                        System.out.print("READY...Sending READY to sender...");
                         /* Reply back to client with READY status */
                         outReader.write("READY\n");
                         outReader.flush();                  
