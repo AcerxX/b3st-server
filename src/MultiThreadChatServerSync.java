@@ -217,16 +217,19 @@ class clientThread extends Thread {
                         outWriter.write(filename + "\n");
                         outWriter.flush();
                         
-                        /* Reply back to client with READY status */
-                        outReader.write("READY\n");
-                        outReader.flush();
-                        
                         String status = inWriter.readLine();
                         if (status.equals("ABORD")){
+                            outReader.write("ABORD\n");
+                            outReader.flush();
                             output.close();
                             server.close();
                             continue;
                         }
+                        
+                        /* Reply back to client with READY status */
+                        outReader.write("READY\n");
+                        outReader.flush();                  
+                        
                     }
                     System.out.println("Done");
 
