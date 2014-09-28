@@ -273,12 +273,12 @@ class clientThread extends Thread {
                                     if (threads[i] != null && threads[i] != this
                                             && threads[i].clientName != null
                                             && threads[i].clientName.equals(words[0])) {
-                                        threads[i].os.println("<" + name + "> " + words[1]);
+                                        threads[i].os.println("<B>|" + name + "|:</B> " + words[1]);
                                         /*
                                          * Echo this message to let the client know the private
                                          * message was sent.
                                          */
-                                        this.os.println(">" + name + "> " + words[1]);
+                                        this.os.println("<B>|" + name + "|:</B> " + words[1]);
                                         break;
                                     }
                                 }
@@ -290,7 +290,7 @@ class clientThread extends Thread {
                     synchronized (this) {
                         for (int i = 0; i < maxClientsCount; i++) {
                             if (threads[i] != null && threads[i].clientName != null) {
-                                threads[i].os.println("<" + name + "> " + line);
+                                threads[i].os.println("<B>|" + name + "|:</B> " + line);
                             }
                         }
                     }
