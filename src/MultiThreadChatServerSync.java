@@ -114,10 +114,10 @@ class clientThread extends Thread {
             while (true) {
                 os.println("<B><I><U>Enter your name:</B></I></U>");
                 name = is.readLine().trim();
-                if (name.indexOf('@') == -1) {
+                if ((name.indexOf('@') == -1) && (!name.contains("/quit"))) {
                     break;
                 } else {
-                    os.println("The name should not contain '@' character.");
+                    os.println("The name should not contain '@' character or /quit sequence.");
                 }
             }
 
