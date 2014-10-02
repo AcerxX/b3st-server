@@ -112,7 +112,7 @@ class clientThread extends Thread {
             os = new PrintStream(clientSocket.getOutputStream());
             String name;
             while (true) {
-                os.println("<B><I><U>Enter your name:</B></I></U>");
+                os.println("<B><I><U>Enter your name:</I></U></B>");
                 name = is.readLine().trim();
                 if ((name.indexOf('@') == -1) && (!name.contains("/quit"))) {
                     break;
