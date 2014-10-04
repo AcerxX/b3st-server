@@ -21,7 +21,7 @@ public class MultiThreadChatServerSync {
 
     // The server socket.
     private static ServerSocket serverSocket = null;
-    private static ServerSocket transferSocket = null;
+    //private static ServerSocket transferSocket = null;
     // The client socket.
     private static Socket clientSocket = null;
 
@@ -123,7 +123,7 @@ class clientThread extends Thread {
 
             /* Welcome the new the client. */
             os.println("Welcome " + name
-                    + " to our chat room.\n");
+                    + " to our chat room.\n To whisper to someone use <<<@name message>>>.\n");
             synchronized (this) {
                 for (int i = 0; i < maxClientsCount; i++) {
                     if (threads[i] != null && threads[i] == this) {
@@ -161,12 +161,11 @@ class clientThread extends Thread {
                 }
 
                 if (line.startsWith("/send")) {
-                    /* Listen on port 5556 */
+                    //<editor-fold defaultstate="collapsed" desc=" FILE TRANSFER ">
+                    /* Listen on port 5557 */
                     System.out.print("Opening port...");
                     ServerSocket server = new ServerSocket(5557);
                     System.out.println("Done");
-
-                    long sstart, scost, sspeed, stotal;
                     Socket[] sk = new Socket[2];
                     
                     /* Accept the sender */
@@ -261,6 +260,7 @@ class clientThread extends Thread {
                     
                     output.close();
                     server.close();
+                    //</editor-fold>
                 }
 
                 if (line.startsWith("@")) { // If the message is private sent it to the given client.
@@ -273,7 +273,7 @@ class clientThread extends Thread {
                                     if (threads[i] != null && threads[i] != this
                                             && threads[i].clientName != null
                                             && threads[i].clientName.equals(words[0])) {
-                                        threads[i].os.println("<B>[" + name + "]:</B> " + words[1]);
+                                        threads[i].os.println("<B>[" + name + "] whispers (use @" + name + " <message> to whisper back):</B> " + words[1]);
                                         /*
                                          * Echo this message to let the client know the private
                                          * message was sent.
