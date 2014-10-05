@@ -100,6 +100,7 @@ class clientThread extends Thread {
         maxClientsCount = threads.length;
     }
 
+    @Override
     public void run() {
         int maxClientsCount = this.maxClientsCount;
         clientThread[] threads = this.threads;
@@ -114,7 +115,7 @@ class clientThread extends Thread {
             while (true) {
                 os.println("<B><I><U>Enter your name:</I></U></B>");
                 name = is.readLine().trim();
-                if ((name.indexOf('@') == -1) && (!name.contains("/quit"))) {
+                if ((name.indexOf('@') == -1) && (!name.contains("/quit")) && (!name.equals("/BUZZ"))) {
                     break;
                 } else {
                     os.println("The name should not contain '@' character or /quit sequence.");
@@ -123,7 +124,7 @@ class clientThread extends Thread {
 
             /* Welcome the new the client. */
             os.println("Welcome " + name
-                    + " to our chat room.\n To whisper to someone use <<<@name message>>>.\n");
+                    + " to our chat room.\n Whisper to someone using @name message.\n");
             synchronized (this) {
                 for (int i = 0; i < maxClientsCount; i++) {
                     if (threads[i] != null && threads[i] == this) {
@@ -273,12 +274,12 @@ class clientThread extends Thread {
                                     if (threads[i] != null && threads[i] != this
                                             && threads[i].clientName != null
                                             && threads[i].clientName.equals(words[0])) {
-                                        threads[i].os.println("<B>[" + name + "] whispers (use @" + name + " <message> to whisper back):</B> " + words[1]);
+                                        threads[i].os.println("<font size=\"3\" face=\"Comic Sans MS\" color=\"green\"><B>[" + name + "] whispers (use @" + name + " <message> to whisper back):</B> " + words[1]);
                                         /*
                                          * Echo this message to let the client know the private
                                          * message was sent.
                                          */
-                                        this.os.println("<B>[" + name + "]:</B> " + words[1]);
+                                        this.os.println("<B>You whispered to"+ threads[i].clientName +" :<font size=\"3\" face=\"Comic Sans MS\" color=\"black\"></B>" + words[1]);
                                         break;
                                     }
                                 }
